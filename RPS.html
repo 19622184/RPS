@@ -1,0 +1,101 @@
+<html>
+    <body style="background-color:rgb(255, 255, 0);">
+    </body>
+<head>
+<style>
+h1 {text-align: center;
+    font-family: Verdana;
+    font-weight: bold;}
+h2 {text-align: center;
+    font-family: Verdana;}
+h3 {text-align: center;
+    font-family: Verdana;}
+p {text-align: center;
+    font-family: Verdana;}
+div {text-align: center;
+    font-family: Verdana;}
+</style>
+</head>
+<body>
+    <h1 style="color:#ffff00;">aaaaa</h1>
+    <h1>Rock Paper Scissors</h1>
+    <h2>Reach 7 points before your opponent does!</h2>
+    <h3>You <span id="you-score">0</span> - <span id="opponent-score">0</span> Opponent</h3>
+    <div style="text-align: center">
+        <button class="options">Rock</button>
+        <button class="options">Paper</button>
+        <button class="options">Scissors</button>
+    </div>
+    <script>
+        const options = document.querySelectorAll(".options");
+        let youscore = 0;
+        let opponentscore = 0;
+
+        options.forEach((option) => {
+            option.addEventListener("click",function () {
+                const youpick = this.textContent;
+                const comchoice = ["Rock","Paper","Scissors"]
+                const compick = comchoice[Math.floor(Math.random()*3)]
+
+                comparePicks(youpick,compick);
+                updateScore();
+                if (checkWinner()) {
+                    youscore = opponentscore = 0;
+                    updateScore();
+                }
+            });
+        });
+        function comparePicks(youpick,compick) {
+            const battle = `${youpick} vs ${compick}`;
+
+            if (youpick === compick) {
+                alert(`${battle} = None gets a point`);
+                return;
+            }
+
+            if (youpick === "Scissors") {
+                if (compick === "Paper") {
+                    alert(`${battle} = You get a point`);
+                    youscore++;
+                }else{
+                    alert(`${battle} = Opponent gets a point`);
+                    opponentscore++;
+                } 
+            }
+            if (youpick === "Paper") {
+                if (compick === "Rock") {
+                    alert(`${battle} = You get a point`);
+                    youscore++;
+                }else{
+                    alert(`${battle} = Opponent gets a point`);
+                    opponentscore++;
+                } 
+            }
+            if (youpick === "Rock") {
+                if (compick === "Scissors") {
+                    alert(`${battle} = You get a point`);
+                    youscore++;
+                }else{
+                    alert(`${battle} = Opponent gets a point`);
+                    opponentscore++;
+                } 
+            } 
+        }
+        function updateScore() {
+            document.getElementById("you-score").textContent = youscore;
+            document.getElementById("opponent-score").textContent = opponentscore;
+        }
+        function checkWinner() {
+            if (youscore === 7 || opponentscore === 7) {
+                const winner =
+                   youscore === 7
+                   ? "You win!"
+                   : "You lose!";
+            alert(winner);
+            return true;
+        }
+        return false;
+    }
+    </script>
+</body>
+</html>
